@@ -3,8 +3,8 @@ package org.example;
 /**
  * Sorting Algorithms Implementation
  *
- * Name: _____________________
- * Date: _____________________
+ * Name: ______Elise_______________
+ * Date: ______October 31, 2025_______________
  *
  * This class implements bubble sort and selection sort algorithms.
  * Complete the implementation and analyze the time complexity.
@@ -17,8 +17,13 @@ public class SortingAlgorithms {
      * is larger than the current element (assuming you are sorting lowest to highest).
      * If the items are in the wrong order then they swap.
      *
-     * Time Complexity: O(___) - explain: _________________________________
-     * Space Complexity: O(___) - explain: ________________________________
+     * Time Complexity: O(n^2) - explain: The algorithm uses two for loops and repeatedly compares each element with the elements next to it.
+                                          This leads to a large number of comparisons as the size of the list increases.
+     * //note: time complexity = worst case scenario for number of steps
+
+     * Space Complexity: O(1) - explain: Bubble sort sorts the array in place and does not require
+                                         any additional memory beyond a small number of temporary variables.
+     * //note: space complexity = worst case scenario for how much memory is used
      *
      * @param arr The array to be sorted
      */
@@ -35,18 +40,21 @@ public class SortingAlgorithms {
         for (int i = 0; i < n - 1; i++) {
 
             // Add a boolean flag to optimize (optional enhancement)
-            // boolean swapped = false;
+            boolean swapped = false;
 
             // Inner loop for comparisons in each pass
             // Note: Why do we use (n - i - 1)? Think about what happens after each pass
 
             // YOUR CODE HERE
-
-
-
+            for(int j=0; j<n-i-1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                    swapped = true;
+                }
+            }
 
             // Optional optimization: if no swaps occurred, array is sorted
-            // if (!swapped) break;
+            if (!swapped) break;
         }
     }
 
@@ -56,8 +64,12 @@ public class SortingAlgorithms {
      * element (sorting lowest to highest). At the end of the pass, the highest value is
      * moved into the correct space.
      *
-     * Time Complexity: O(___) - explain: _________________________________
-     * Space Complexity: O(___) - explain: ________________________________
+     * Time Complexity: O(n^2) - explain: The algorithm repeatedly scans the remaining unsorted portion of the data set
+                                          to find the highest/smallest value. This results in a large number of comparisons
+                                          as the size of the data set increases.
+
+     * Space Complexity: O(1) - explain: Selection sort sorts the data set in place and only uses a small number of
+                                         extra variables to store indexes and temporary values.
      *
      * @param arr The array to be sorted
      */
@@ -74,13 +86,18 @@ public class SortingAlgorithms {
 
             // Find the minimum element in unsorted array
             // YOUR CODE HERE
-
-
-
+            int minIndex = i;
+            for(int j = i + 1; j < n; j++){
+                if(arr[j]<arr[minIndex]){
+                    minIndex = j;
+                }
+            }
 
             // Swap the found minimum element with the first element
             // YOUR CODE HERE
-
+            if(minIndex != i){
+                swap(arr, i, minIndex);
+            }
         }
     }
 
@@ -93,10 +110,10 @@ public class SortingAlgorithms {
     private static void swap(int[] arr, int i, int j) {
         // TODO: Implement swap
         // Remember: You need a temporary variable
-
         // YOUR CODE HERE
-
-
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     /**
@@ -195,13 +212,13 @@ public class SortingAlgorithms {
         System.out.println("\n=== Performance Analysis ===");
         System.out.println("Complete the following analysis:");
         System.out.println("1. Which algorithm performed fewer comparisons on an already sorted array?");
-        System.out.println("   Answer: _____________");
+        System.out.println("   Answer: Optimized bubble sort does fewer comparisons");
         System.out.println("2. Which algorithm performed fewer swaps on a reverse sorted array?");
-        System.out.println("   Answer: _____________");
-        System.out.println("3. What is the worst-case time complexity for bubble sort? ______");
-        System.out.println("4. What is the worst-case time complexity for selection sort? ______");
-        System.out.println("5. What is the best-case time complexity for bubble sort? ______");
-        System.out.println("6. What is the best-case time complexity for selection sort? ______");
+        System.out.println("   Answer: Selection sort");
+        System.out.println("3. What is the worst-case time complexity for bubble sort? O(n^2)");
+        System.out.println("4. What is the worst-case time complexity for selection sort? O(n^2)");
+        System.out.println("5. What is the best-case time complexity for bubble sort? O(n)");
+        System.out.println("6. What is the best-case time complexity for selection sort? O(n^2)");
 
         System.out.println();
 
@@ -211,23 +228,25 @@ public class SortingAlgorithms {
         System.out.println("Array: [5, 2, 8, 1, 9]");
         System.out.println();
         System.out.println("Bubble Sort Trace:");
-        System.out.println("Pass 1: ________________________________");
-        System.out.println("Pass 2: ________________________________");
-        System.out.println("Pass 3: ________________________________");
-        System.out.println("Pass 4: ________________________________");
+        System.out.println("Pass 1: [2, 5, 1, 8, 9]");
+        System.out.println("Pass 2: [2, 1, 5, 8, 9]");
+        System.out.println("Pass 3: [1, 2, 5, 8, 9]");
+        System.out.println("Pass 4: no swaps needed");
         System.out.println();
         System.out.println("Selection Sort Trace:");
-        System.out.println("Pass 1: ________________________________");
-        System.out.println("Pass 2: ________________________________");
-        System.out.println("Pass 3: ________________________________");
-        System.out.println("Pass 4: ________________________________");
+        System.out.println("Pass 1: [1, 2, 8, 5, 9]"); //pass here contains the result of that pass
+        System.out.println("Pass 2: [1, 2, 8, 5, 9]");
+        System.out.println("Pass 3: [1, 2, 5, 8, 9]");
+        System.out.println("Pass 4: [1, 2, 5, 8, 9]");
         System.out.println();
         System.out.println("2. Explain why bubble sort can be optimized but selection sort cannot:");
-        System.out.println("_________________________________________________________");
-        System.out.println("_________________________________________________________");
+        System.out.println("Bubble sort can be optimized but selection sort cannot. This is because bubble sort can stop early when a full pass makes no swaps as it's proven that the data set is already sorted. " +
+                "However, selection sort still has to scan the remaining unsorted portion of the data set each pass to confirm what the smallest element is. " +
+                "Hence, even if the data set is already sorted, it still performs the same comparisons.");
+
         System.out.println("3. Explain how you would implement this optimisation within your bubble sort algorithm:");
-        System.out.println("_________________________________________________________");
-        System.out.println("_________________________________________________________");
+        System.out.println("I would implement this optimisation by adding an if statement to see if any swaps occured during a pass. " +
+                "If no swaps occured, the code would break.");
     }
     
 }
